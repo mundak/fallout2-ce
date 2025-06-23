@@ -59,7 +59,15 @@ int main(int argc, char* argv[])
 #if __ANDROID__
     SDL_SetHint(SDL_HINT_MOUSE_TOUCH_EVENTS, "0");
     SDL_SetHint(SDL_HINT_TOUCH_MOUSE_EVENTS, "0");
-    chdir(SDL_AndroidGetExternalStoragePath());
+    // eemu:
+    // chdir(SDL_AndroidGetExternalStoragePath());
+    if (argc < 2) {
+        SDL_Log("Game path not provided.\n");
+        return 1;
+    }
+    const char* game_path = argv[1];
+    SDL_Log("Game path: %s\n", game_path);
+    chdir(game_path);
 #endif
 
     SDL_ShowCursor(SDL_DISABLE);
